@@ -1,25 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import './Grid';
+import GridBoard from './Grid';
+import Difficulty from './Difficulty';
+import React, { useState } from 'react';
 
 function App() {
+  const [difficulty, setDifficulty] = useState(5);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={wrapper}>
+      <Difficulty onDifficultyChange={setDifficulty} />
+      <GridBoard difficulty={difficulty} />
     </div>
   );
 }
+
+const wrapper = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: '100vh',
+  fontFamily: 'Arial, sans-serif'
+};
 
 export default App;
