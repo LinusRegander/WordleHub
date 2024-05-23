@@ -1,21 +1,40 @@
 import './App.css';
 import './Grid';
 import GridBoard from './Grid';
-import Difficulty from './Difficulty';
 import Keyboard from './Keyboard';
 import useKeyboard from './UseKeyboard';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+async function getWord() {
+  try {
+    const response = await axios.get('https://api.api-ninjas.com/v1/randomword', {
+      headers: {
+        'X-Api-Key': 'fOpHDXk7MdgK3u/q82NbjA==OPXXm8wmm8a6E66M'
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Request failed:', error);
+    return null;
+  }
+}
 
 function App() {
-  
-  const [difficulty, setDifficulty] = useState(5);
-  const {input, handleKeyPress} = useKeyboard();
+  const [word, setWord] = useState('');
+  const { input, handleKeyPress } = useKeyboard();
 
+  useEffect(() => {
+      async function fetchWord() {
+        const value = await getWord();
+        setWord(value);
+      }
+      fetchWord();
+    }, []);
 
   return (
     <div style={wrapper}>
-      <Difficulty onDifficultyChange={setDifficulty} />
-      <GridBoard difficulty={difficulty} />
+      {word && <GridBoard word={word} input={input} />}
       <input type="text" value={input} readOnly />
       <Keyboard onKeyPress={handleKeyPress} />
     </div>
