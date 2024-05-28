@@ -35,7 +35,7 @@ function App() {
   return (
     <div style={wrapper}>
       {word && <GridBoard word={word} input={input} />}
-      <input type="text" value={input} readOnly />
+      <input type="text" value={input} placeholder={word.word} readOnly />
       <Keyboard onKeyPress={handleKeyPress} />
     </div>
   );
