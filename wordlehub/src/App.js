@@ -13,7 +13,7 @@ async function getWord() {
         'X-API-KEY': 'e275740d50ea4f7688fe1636edda32a2'
       }
     });
-    return response.data[Math.floor(Math.random() * 43)].name.split(" ")[0];
+    return {'word': response.data[Math.floor(Math.random() * 43)].name.split(" ")[0]};
   } catch (error) {
     console.error('Request failed:', error);
     return null;
@@ -21,7 +21,7 @@ async function getWord() {
 }
 
 function App() {
-  const [word, setWord] = useState('');
+  const [word, setWord] = useState(''); 
   const { input, handleKeyPress } = useKeyboard();
 
   useEffect(() => {
