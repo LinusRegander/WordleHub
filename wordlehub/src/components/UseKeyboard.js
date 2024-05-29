@@ -10,7 +10,7 @@ const useKeyboard = () => {
         if (key === 'Backspace') {
           return prevInput.slice(0, -1);
         } else if (key === 'Enter') {
-          return "";
+          return ""; // Run test to see if it matches the word, and move to next row
         } else if ((keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122)) {
           // Only allow letters
           return prevInput + key.toUpperCase();
@@ -28,11 +28,7 @@ const useKeyboard = () => {
 
   const handleKeyPress = (key) => {
     setInput((prevInput) => {
-      if (key === 'Backspace') {
-        return prevInput.slice(0, -1);
-      } else if (key === 'Enter') {
-        return "";
-      } else if (/^[a-zA-Z]$/.test(key)) {
+      if (/^[a-zA-Z]$/.test(key)) {
         return prevInput + key;
       }
       return prevInput; // Return the previous input if no valid key is pressed
