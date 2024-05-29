@@ -22,10 +22,34 @@ async function getWord() {
   }
 }
 
+function Cell({ input, id }) {
+  return (
+    <div id={id} style={cellStyle}>{input}</div>
+  );
+}
+
+async function createGrid(word) {
+  const wordLength = word.word.length;
+  const grid = [];
+
+  const numRows = Math.max(6, wordLength);
+
+  for (let i = 0; i < numRows; i++) {
+    const row = [];
+    for (let j = 0; j < wordLength; j++) {
+      row.push(<Cell key={j} input={1} />);
+    }
+    grid.push(<div key={i} style={rowStyle}>{row}</div>);
+  }
+
+  return grid;
+}
+
 function App() {
   const [word, setWord] = useState('');
   const [score, setScore] = useState(0);
-  const { input, handleKeyPress } = useKeyboard();
+  const { input, handleKeyPress } = useKeyboard({ word });
+  const [grid, setGrid] = useState([]);
 
   useEffect(() => {
     const points = getCookie('Points');
@@ -35,16 +59,19 @@ function App() {
   }, []);
 
   useEffect(() => {
-      async function fetchWord() {
-        const value = await getWord();
-        setWord(value);
-      }
-      fetchWord();
-    }, []);
+    async function fetchWord() {
+      const value = await getWord();
+      setWord(value);
+      console.log(value);
+      const gridArr = await createGrid(value);
+      setGrid(gridArr);
+    }
+    fetchWord();
+  }, []);
 
   return (
     <div style={wrapper}>
-      {word && <GridBoard word={word} input={input} />}
+      {word && <GridBoard grid={grid} />}
       <PointSystem score={score} />
       <input type="text" value={input} placeholder={word.word} readOnly />
       <Keyboard onKeyPress={handleKeyPress} />
@@ -59,6 +86,17 @@ const wrapper = {
   justifyContent: 'center',
   minHeight: '100vh',
   fontFamily: 'Arial, sans-serif'
+};
+
+const rowStyle = {
+  display: 'flex',
+};
+
+const cellStyle = {
+  display: 'grid',
+  border: '1px solid black',
+  padding: '10px',
+  textAlign: 'center'
 };
 
 export default App;
