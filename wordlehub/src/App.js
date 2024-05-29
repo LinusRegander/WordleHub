@@ -1,25 +1,39 @@
 import { useEffect, useState } from 'react'
-import WordleHub from './components/Wordle'
+import Wordle from './components/Wordle'
+import axios from 'axios';
+
+async function getWord() {
+  try {
+    const response = await axios.get('https://api.api-ninjas.com/v1/randomword', {
+      headers: {
+        'X-Api-Key': 'fOpHDXk7MdgK3u/q82NbjA==OPXXm8wmm8a6E66M'
+      }
+    });
+    return response.data.word
+  } catch (error) {
+    console.error('Request failed:', error);
+    return null;
+  }
+}
 
 function App() {
   const [solution, setSolution] = useState(null)
-  
+
   useEffect(() => {
-    fetch('http://localhost:3001/solutions')
-      .then(res => res.json())
-      .then(json => {
-        // random int between 0 & 14
-        const randomSolution = json[Math.floor(Math.random()*json.length)]
-        setSolution(randomSolution.word)
-      })
-  }, [setSolution])
+    async function fetchWord() {
+      let value = await getWord();
+      setSolution(value.toLowerCase());
+    }
+    fetchWord();
+  }, []);
 
   return (
     <div className="App">
       <h1>WordleHub</h1>
-      {solution && <WordleHub solution={solution} />}
+      {solution && <Wordle solution={solution} />}
     </div>
   )
 }
 
 export default App
+

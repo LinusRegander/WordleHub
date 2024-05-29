@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+const pointsArr = [500, 400, 300, 200, 100];
+
 const useWordleHub = (solution) => {
   const [turn, setTurn] = useState(0) 
   const [currentGuess, setCurrentGuess] = useState('')
@@ -11,7 +13,6 @@ const useWordleHub = (solution) => {
   // format a guess into an array of letter objects 
   // e.g. [{key: 'a', color: 'yellow'}]
   const formatGuess = () => {
-    console.log(typeof solution)
     let solutionArray = [...solution]
     let formattedGuess = [...currentGuess].map((l) => {
       return {key: l, color: 'grey'}
@@ -92,8 +93,8 @@ const useWordleHub = (solution) => {
         return
       }
       // check word is 5 chars
-      if (currentGuess.length !== 5) {
-        console.log('word must be 5 chars.')
+      if (currentGuess.length !== solution.length) {
+        console.log('word must be atleast '+ solution.length +' chars.')
         return
       }
       const formatted = formatGuess()
@@ -104,7 +105,7 @@ const useWordleHub = (solution) => {
       return
     }
     if (/^[A-Za-z]$/.test(key)) {
-      if (currentGuess.length < 5) {
+      if (currentGuess.length < solution.length) {
         setCurrentGuess(prev => prev + key)
       }
     }
