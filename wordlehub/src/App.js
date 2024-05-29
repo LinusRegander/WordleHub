@@ -1,10 +1,12 @@
 import './App.css';
-import './Grid';
-import GridBoard from './Grid';
-import Keyboard from './Keyboard';
-import useKeyboard from './UseKeyboard';
+import './components/Grid';
+import GridBoard from './components/Grid';
+import Keyboard from './components/Keyboard';
+import useKeyboard from './components/UseKeyboard';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import PointSystem from './components/Points';
+import { getCookie } from './utils/Cookies';
 
 async function getWord() {
   try {
@@ -22,7 +24,15 @@ async function getWord() {
 
 function App() {
   const [word, setWord] = useState('');
+  const [score, setScore] = useState(0);
   const { input, handleKeyPress } = useKeyboard();
+
+  useEffect(() => {
+    const points = getCookie('Points');
+    if (points !== null) {
+      setScore(parseInt(points));
+    }
+  }, []);
 
   useEffect(() => {
       async function fetchWord() {
@@ -35,6 +45,7 @@ function App() {
   return (
     <div style={wrapper}>
       {word && <GridBoard word={word} input={input} />}
+      <PointSystem score={score} />
       <input type="text" value={input} readOnly />
       <Keyboard onKeyPress={handleKeyPress} />
     </div>
