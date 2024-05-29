@@ -3,7 +3,6 @@ function setCookie(value) {
     date.setHours(24, 0, 0, 0);
     const expiration = "; expires=" + date.toUTCString();
     document.cookie = "Points" + "=" + (value || "") + expiration + "; path=/";
-
 }
 
 function getCookie() {
