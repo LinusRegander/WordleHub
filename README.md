@@ -1,7 +1,7 @@
 # WordleHub
 
-// npm install -g json-server /n
-// json-server .\data\db.json --port 3001
+#// npm install -g json-server 
+#// json-server .\data\db.json --port 3001
 
-// npm install -g react-scripts /n
-// npm start
+#// npm install -g react-scripts 
+#// npm start
