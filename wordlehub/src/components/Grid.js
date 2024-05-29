@@ -1,16 +1,17 @@
-const GridBoard = ({ grid }) => {
+import React from 'react'
+
+// components
+import Row from './Row'
+
+export default function Grid({ guesses, currentGuess, turn }) {
   return (
-    <div id="grid-wrapper" style={wrapperStyle}>
-      {grid}
+    <div>
+      {guesses.map((g, i) => {
+        if (turn === i) {
+          return <Row key={i} currentGuess={currentGuess} />
+        }
+        return <Row key={i} guess={g} /> 
+      })}
     </div>
-  );
-};
-
-const wrapperStyle = {
-  display: 'grid',
-  gap: '10px',
-  justifyContent: 'center',
-  alignItems: 'center'
-};
-
-export default GridBoard;
+  )
+}
