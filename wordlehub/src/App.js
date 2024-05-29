@@ -10,12 +10,12 @@ import { getCookie } from './utils/Cookies';
 
 async function getWord() {
   try {
-    const response = await axios.get('https://api.api-ninjas.com/v1/randomword', {
+    const response = await axios.get('https://randommer.io/api/Misc/Cultures', {
       headers: {
-        'X-Api-Key': 'fOpHDXk7MdgK3u/q82NbjA==OPXXm8wmm8a6E66M'
+        'X-API-KEY': 'e275740d50ea4f7688fe1636edda32a2'
       }
     });
-    return response.data;
+    return {'word': response.data[Math.floor(Math.random() * 43)].name.split(" (")[0]};
   } catch (error) {
     console.error('Request failed:', error);
     return null;
@@ -46,7 +46,7 @@ function App() {
     <div style={wrapper}>
       {word && <GridBoard word={word} input={input} />}
       <PointSystem score={score} />
-      <input type="text" value={input} readOnly />
+      <input type="text" value={input} placeholder={word.word} readOnly />
       <Keyboard onKeyPress={handleKeyPress} />
     </div>
   );
