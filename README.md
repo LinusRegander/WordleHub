@@ -20,6 +20,7 @@ $ json-server .\data\db.json --port 3001
 
 ### How to get the project running
 $ npm install -g react-scripts 
+
 $ npm start
 
 ### If this did not work for you contact anyone at this page(https://mau-webb.github.io/resurser/da395a-vt24/)
