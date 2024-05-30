@@ -15,10 +15,13 @@ When that is done go to the next step.
 Clone the code and open it in your prefered terminal run the commands beneth!
 
 ### How to setup the db-needed for the keyboard
-$ npm install -g json-server 
+$ npm install -g json-server
+
 $ json-server .\data\db.json --port 3001
 
 ### How to get the project running
+$ npm install axios
+
 $ npm install -g react-scripts 
 
 $ npm start
