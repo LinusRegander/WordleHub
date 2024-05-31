@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-const pointsArr = [500, 400, 300, 200, 100];
-
 const useWordleHub = (solution) => {
   const [turn, setTurn] = useState(0) 
   const [currentGuess, setCurrentGuess] = useState('')

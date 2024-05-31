@@ -43,10 +43,10 @@ export default function WordleHub({ solution }) {
     }
 
     return () => window.removeEventListener('keyup', handleKeyup)
-  }, [handleKeyup, isCorrect, turn])
+  }, [handleKeyup, isCorrect, turn, currentPoints, points])
 
   return (
-    <div>
+    <div id="game-wrapper">
       <Grid guesses={guesses} currentGuess={currentGuess} turn={turn} solution={solution}/>
       <Keypad usedKeys={usedKeys} />
       {showModal && <Modal isCorrect={isCorrect} turn={turn} solution={solution} />}
